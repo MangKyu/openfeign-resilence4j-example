@@ -6,4 +6,5 @@ exchange:
 
 logging:
   level:
-    com.mangkyu.openfeign.app.openfeign: DEBUG
+#    com.mangkyu.openfeign.app.openfeign: DEBUG
+    org.springframework.cloud.openfeign: DEBUG
