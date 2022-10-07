@@ -1,8 +1,10 @@
 exchange:
   currency:
     api:
-      uri: https://api.apilayer.com/currency_data/live
-      key: eipMczgiQB0BDmiHx2dX2dv9pPjGxXnh
+#      uri: https://api.apilayer.com/currency_data/live
+      uri: https://localhost:8092
+      key: 123
+#      key: eipMczgiQB0BDmiHx2dX2dv9pPjGxXnh
 
 feign:
   client:
