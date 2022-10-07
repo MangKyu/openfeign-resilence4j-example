@@ -5,5 +5,5 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationPropertiesScan("com.mangkyu.openfeign")
-class PropertiesConfig {
+public class CustomPropertiesConfig {
 }
