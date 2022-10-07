@@ -29,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableFeignClients("com.mangkyu.openfeign")
-class OpenFeignConfig {
+public class OpenFeignConfig {
 
     @Bean
     Logger.Level feignLoggerLevel() {
