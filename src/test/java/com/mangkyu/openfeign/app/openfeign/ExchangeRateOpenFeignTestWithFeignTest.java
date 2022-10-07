@@ -5,7 +5,7 @@ import static org.assertj.core.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.mangkyu.openfeign.feigntest.cloudconfig.FeignTest;
+import com.mangkyu.openfeign.feigntest.FeignTest;
 import com.mangkyu.openfeign.app.Currency;
 import com.mangkyu.openfeign.app.ExchangeRateResponse;
 import com.mangkyu.openfeign.config.ExchangeRateProperties;

@@ -1,4 +1,4 @@
-package com.mangkyu.openfeign.feigntest.cloudconfig;
+package com.mangkyu.openfeign.feigntest;
 
 import org.springframework.boot.test.context.SpringBootTest;
 

@@ -1,4 +1,4 @@
-package com.mangkyu.openfeign.feigntest.cloudconfig;
+package com.mangkyu.openfeign.feigntest;
 
 import com.mangkyu.openfeign.config.CustomPropertiesConfig;
 import org.springframework.boot.autoconfigure.ImportAutoConfiguration;
@@ -9,10 +9,11 @@ import org.springframework.cloud.openfeign.FeignAutoConfiguration;
 
 @EnableFeignClients(basePackages = "com.mangkyu.openfeign")
 @ImportAutoConfiguration({
-		CustomPropertiesConfig.class,
-		FeignAutoConfiguration.class,
+        CustomPropertiesConfig.class,
+        FeignAutoConfiguration.class,
         HttpMessageConvertersAutoConfiguration.class,
-		ConfigurationPropertiesAutoConfiguration.class
+        ConfigurationPropertiesAutoConfiguration.class
 })
 class FeignTestContext {
+    
 }
