@@ -35,7 +35,16 @@ public class OpenFeignConfig {
     Logger.Level feignLoggerLevel() {
         return BASIC;
     }
-
+    
+    @Bean
+    public FeignFormatterRegistrar dateTimeFormatterRegistrar() {
+        return registry -> {
+            DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
+            registrar.setUseIsoFormat(true);
+            registrar.registerFormatters(registry);
+        };
+    }
+    
     @Bean
     public CustomFeignRequestLogging customFeignRequestLogging() {
         return new CustomFeignRequestLogging();
