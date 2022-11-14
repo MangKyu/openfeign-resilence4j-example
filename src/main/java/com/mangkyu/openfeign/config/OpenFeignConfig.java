@@ -18,8 +18,10 @@ import feign.Retryer;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.cloud.openfeign.FeignFormatterRegistrar;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StreamUtils;
 
