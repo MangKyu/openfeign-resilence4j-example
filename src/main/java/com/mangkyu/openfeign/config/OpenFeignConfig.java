@@ -11,12 +11,10 @@ package com.mangkyu.openfeign.config;
 
 import static feign.Logger.Level.*;
 
-import feign.Logger;
-import feign.Request;
-import feign.Response;
-import feign.Retryer;
+import feign.*;
 import lombok.extern.slf4j.Slf4j;
 
+import org.bouncycastle.util.Arrays;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.cloud.openfeign.FeignFormatterRegistrar;
 import org.springframework.context.annotation.Bean;
@@ -24,6 +22,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.format.datetime.standard.DateTimeFormatterRegistrar;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.StreamUtils;
+import org.yaml.snakeyaml.util.ArrayUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -32,6 +31,26 @@ import java.util.concurrent.TimeUnit;
 @Configuration
 @EnableFeignClients("com.mangkyu.openfeign")
 public class OpenFeignConfig {
+
+    /**
+     * OpenFeign 12.0 버전에 버그픽스 되었으므로 버전 확인 후에 적용 필요!
+     * 관련 문서: https://github.com/OpenFeign/feign/releases/tag/12.0
+     */
+    @Bean
+    public RequestInterceptor requestInterceptor() {
+        return requestTemplate -> {
+            if(Arrays.isNullOrEmpty(requestTemplate.body()) && !isGetOrDelete(requestTemplate)) {
+                // body가 비어있는 경우에 요청을 보내면 411 에러가 생김 https://github.com/OpenFeign/feign/issues/1251
+                // content-length로 처리가 안되어서 빈 값을 항상 보내주도록 함
+                requestTemplate.body("{}");
+            }
+        };
+    }
+
+    private boolean isGetOrDelete(RequestTemplate requestTemplate) {
+        return Request.HttpMethod.GET.name().equals(requestTemplate.method())
+                || Request.HttpMethod.DELETE.name().equals(requestTemplate.method());
+    }
 
     @Bean
     Logger.Level feignLoggerLevel() {
