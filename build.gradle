@@ -1,5 +1,5 @@
 plugins {
-    id 'org.springframework.boot' version '2.7.3'
+    id 'org.springframework.boot' version '2.7.8'
     id 'io.spring.dependency-management' version '1.0.13.RELEASE'
     id 'java'
 }
@@ -23,6 +23,7 @@ dependencies {
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     implementation 'org.springframework.cloud:spring-cloud-starter-openfeign'
+    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.junit.platform:junit-platform-launcher'
@@ -32,7 +33,7 @@ dependencies {
 
 
 ext {
-    set('springCloudVersion', "2021.0.4")
+    set('springCloudVersion', "2021.0.5")
 }
 
 dependencyManagement {
