@@ -1,0 +1,39 @@
+exchange:
+  currency:
+    api:
+      uri: http://localhost:8090/currency_data/live
+      key: 123
+
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+  circuitbreaker:
+    enabled: true
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 3
+        minimumNumberOfCalls: 3
+        permittedNumberOfCallsInHalfOpenState: 3
+        waitDurationInOpenState: 30s
+        slowCallDurationThreshold: 5s
+        registerHealthIndicator: true
+    instances:
+      currency:
+        baseConfig: default
+
+logging:
+  level:
+    ROOT: INFO
+#    io:
+#      github:
+#        resilience4j: DEBUG
+
+#    com.mangkyu.openfeign.app.openfeign: DEBUG
+#    org.springframework.cloud.openfeign: DEBUG
