@@ -9,7 +9,7 @@ import org.springframework.core.NestedExceptionUtils;
 
 import java.util.Optional;
 
-class MyFallbackDecorator implements FallbackDecorator {
+public class MyFallbackDecorator implements FallbackDecorator {
 
     @Override
     public boolean supports(Class<?> target) {
