@@ -33,6 +33,7 @@ public interface MyAllFallbackFeignClient {
             @RequestParam Currency source,
             @RequestParam Currency currencies,
             Throwable e) {
+        log.error("defaultValueCallbackImplements called");
 
         return ExchangeRateResponse.builder().build();
     }

@@ -11,6 +11,7 @@ class MyFallbackWithFactory implements MyFeignFallbackFeignClient, MyAllFallback
 
     @Override
     public ExchangeRateResponse defaultValueCallback(String apiKey, Currency source, Currency currencies) {
+        log.error("defaultValueCallback called");
         return ExchangeRateResponse.builder().build();
     }
 
