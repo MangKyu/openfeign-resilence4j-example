@@ -2,7 +2,7 @@ exchange:
   currency:
     api:
 #      uri: https://api.apilayer.com/currency_data/live
-      uri: https://localhost:8092
+      uri: http://localhost:8090/currency_data/live
       key: 123
 #      key: eipMczgiQB0BDmiHx2dX2dv9pPjGxXnh
 
@@ -12,8 +12,29 @@ feign:
       default:
         connectTimeout: 5000
         readTimeout: 5000
+  circuitbreaker:
+    enabled: true
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 3
+        minimumNumberOfCalls: 3
+        permittedNumberOfCallsInHalfOpenState: 3
+        waitDurationInOpenState: 30s
+        slowCallDurationThreshold: 5s
+        registerHealthIndicator: true
+        recordFailurePredicate: com.mangkyu.openfeign.app.openfeign.circuit.ExceptionRecordFailurePredicate
+    instances:
+      default:
+        baseConfig: default
+      currency:
+        baseConfig: default
 
 logging:
   level:
+    ROOT: INFO
+#    io.github.resilience4j: DEBUG
 #    com.mangkyu.openfeign.app.openfeign: DEBUG
-    org.springframework.cloud.openfeign: DEBUG
+#    org.springframework.cloud.openfeign: DEBUG
