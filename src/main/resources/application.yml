@@ -32,6 +32,16 @@ resilience4j:
       currency:
         baseConfig: default
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: prometheus  # 대시보드 scrape endpoint
+      base-path: /actuator
+  metrics:
+    tags:
+      application: mangkyu-server  # 대시보드에 노출될 application 명
+
 logging:
   level:
     ROOT: INFO
