@@ -1,4 +1,4 @@
-package com.mangkyu.openfeign.app.openfeign.resilence4jfallback;
+package com.mangkyu.openfeign.app.openfeign.fallback.resilence4jfallback;
 
 import io.github.resilience4j.fallback.FallbackDecorator;
 import io.github.resilience4j.fallback.FallbackMethod;

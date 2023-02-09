@@ -1,8 +1,7 @@
-package com.mangkyu.openfeign.app.openfeign.allfallback;
+package com.mangkyu.openfeign.app.openfeign.fallback.resilence4jfallback;
 
 import com.mangkyu.openfeign.app.Currency;
 import com.mangkyu.openfeign.app.ExchangeRateResponse;
-import com.mangkyu.openfeign.app.openfeign.resilence4jfallback.MyFallbackDecorator;
 import com.mangkyu.openfeign.config.ExchangeRateProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
@@ -16,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @Slf4j
 @SpringBootTest
 @Import(MyFallbackDecorator.class)
-class MyAllFallbackFeignClientWithDecoratorTest {
+class MyResilence4JFallbackFeignClientWithDecoratorTest {
 
     @Autowired
-    private MyAllFallbackFeignClient openFeign;
+    private MyResilence4jFallbackFeignClient openFeign;
     @Autowired
     private ExchangeRateProperties properties;
 

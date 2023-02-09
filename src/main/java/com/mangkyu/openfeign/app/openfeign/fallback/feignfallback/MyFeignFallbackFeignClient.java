@@ -1,4 +1,4 @@
-package com.mangkyu.openfeign.app.openfeign.feignfallback;
+package com.mangkyu.openfeign.app.openfeign.fallback.feignfallback;
 
 import com.mangkyu.openfeign.app.Currency;
 import com.mangkyu.openfeign.app.ExchangeRateResponse;

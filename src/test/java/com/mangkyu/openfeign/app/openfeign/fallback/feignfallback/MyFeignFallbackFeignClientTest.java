@@ -1,4 +1,4 @@
-package com.mangkyu.openfeign.app.openfeign.allfallback;
+package com.mangkyu.openfeign.app.openfeign.fallback.feignfallback;
 
 import com.mangkyu.openfeign.app.Currency;
 import com.mangkyu.openfeign.app.ExchangeRateResponse;
@@ -13,10 +13,10 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @Slf4j
 @SpringBootTest
-class MyAllFallbackFeignClientTest {
+class MyFeignFallbackFeignClientTest {
 
     @Autowired
-    private MyAllFallbackFeignClient openFeign;
+    private MyFeignFallbackFeignClient openFeign;
     @Autowired
     private ExchangeRateProperties properties;
 
@@ -29,7 +29,7 @@ class MyAllFallbackFeignClientTest {
     @Test
     void throwsExceptionCallback() {
         assertThatThrownBy(() -> openFeign.throwsExceptionCallback(properties.getKey(), Currency.JPY, Currency.KRW))
-                .isInstanceOf(ArrayStoreException.class);
+                .isInstanceOf(ArrayIndexOutOfBoundsException.class);
     }
 
 }

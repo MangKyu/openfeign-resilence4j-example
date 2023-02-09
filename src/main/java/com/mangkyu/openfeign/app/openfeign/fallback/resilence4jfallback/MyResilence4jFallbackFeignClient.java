@@ -1,8 +1,7 @@
-package com.mangkyu.openfeign.app.openfeign.allfallback;
+package com.mangkyu.openfeign.app.openfeign.fallback.resilence4jfallback;
 
 import com.mangkyu.openfeign.app.Currency;
 import com.mangkyu.openfeign.app.ExchangeRateResponse;
-import com.mangkyu.openfeign.app.openfeign.feignfallback.MyTestFallbackFactory;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,15 +10,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @FeignClient(
-        name = "MyAllFallbackFeignClient",
-        url = "${exchange.currency.api.uri}",
-        fallbackFactory = MyTestFallbackFactory.class
+        name = "Resilence4jFallbackFeignClient",
+        url = "${exchange.currency.api.uri}"
 )
-public interface MyAllFallbackFeignClient {
+interface MyResilence4jFallbackFeignClient {
 
-    Logger log = LoggerFactory.getLogger(MyAllFallbackFeignClient.class);
+    Logger log = LoggerFactory.getLogger(MyResilence4jFallbackFeignClient.class);
 
     @GetMapping
     @CircuitBreaker(name = "currency", fallbackMethod = "defaultValueCallbackImplements")
