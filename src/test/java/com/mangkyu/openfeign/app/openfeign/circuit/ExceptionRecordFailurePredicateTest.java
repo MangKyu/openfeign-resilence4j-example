@@ -9,6 +9,7 @@ import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mock;
@@ -17,7 +18,7 @@ class ExceptionRecordFailurePredicateTest {
 
     @MethodSource("failureException")
     @ParameterizedTest
-    void feignServerException(Throwable throwable) {
+    void failureException(Throwable throwable) {
         // given
 
         // when
@@ -41,6 +42,7 @@ class ExceptionRecordFailurePredicateTest {
     private static List<Arguments> failureException() {
         return Arrays.asList(
                 Arguments.of(mock(RetryableException.class)),
+                Arguments.of(mock(TimeoutException.class)),
                 Arguments.of(mock(FeignException.FeignServerException.class))
         );
 
