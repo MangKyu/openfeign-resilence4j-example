@@ -1,55 +1,47 @@
 package com.mangkyu.openfeign.app.openfeign.circuit;
 
 import feign.FeignException;
+import feign.RetryableException;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.springframework.http.HttpStatus;
 
 import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
 class ExceptionRecordFailurePredicateTest {
 
-    @MethodSource("statusMethod")
+    @MethodSource("failureException")
     @ParameterizedTest
-    void feignException(HttpStatus status, boolean isFail) {
+    void feignServerException(Throwable throwable) {
         // given
-        FeignException exception = mock(FeignException.class);
-        doReturn(status.value())
-                .when(exception)
-                .status();
 
         // when
-        boolean result = new ExceptionRecordFailurePredicate().test(exception);
+        boolean result = new ExceptionRecordFailurePredicate().test(throwable);
 
         // then
-        assertThat(result).isEqualTo(isFail);
+        assertThat(result).isEqualTo(true);
     }
 
-    @MethodSource("statusMethod")
-    @ParameterizedTest
-    void test(HttpStatus status, boolean isFail) {
+    @Test
+    void runtimeException() {
         // given
 
         // when
         boolean result = new ExceptionRecordFailurePredicate().test(new RuntimeException());
 
         // then
-        assertThat(result).isEqualTo(isFail);
+        assertThat(result).isEqualTo(false);
     }
 
-    private static List<Arguments> statusMethod() {
+    private static List<Arguments> failureException() {
         return Arrays.asList(
-                Arguments.of(HttpStatus.CONTINUE, false),
-                Arguments.of(HttpStatus.OK, false),
-                Arguments.of(HttpStatus.TEMPORARY_REDIRECT, false),
-                Arguments.of(HttpStatus.FORBIDDEN, false),
-                Arguments.of(HttpStatus.INTERNAL_SERVER_ERROR, true)
+                Arguments.of(mock(RetryableException.class)),
+                Arguments.of(mock(FeignException.FeignServerException.class))
         );
 
     }
