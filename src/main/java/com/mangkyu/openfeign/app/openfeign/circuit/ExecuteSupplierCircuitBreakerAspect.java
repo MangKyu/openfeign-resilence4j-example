@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Aspect
-@Component
+//@Component
 @RequiredArgsConstructor
 @Slf4j
 class ExecuteSupplierCircuitBreakerAspect {
@@ -25,9 +25,17 @@ class ExecuteSupplierCircuitBreakerAspect {
 
     @Around("@within(feignClient)")
     public Object circuitBreakerDefaultAdvice(ProceedingJoinPoint joinPoint, FeignClient feignClient) throws Throwable {
-        String circuitBreakerName = findCircuitBreakerName(joinPoint);
-        CircuitBreaker circuitBreaker = registry.circuitBreaker(circuitBreakerName);
+        FeignCircuitBreaker annotation = AnnotationUtils.findAnnotation(joinPoint.getTarget().getClass(), FeignCircuitBreaker.class);
+        if (annotation == null || annotation.apply()) {
+            return proceedWithCircuitBreaker(joinPoint, annotation);
+        }
 
+        return joinPoint.proceed();
+    }
+
+    private Object proceedWithCircuitBreaker(ProceedingJoinPoint joinPoint, FeignCircuitBreaker annotation) throws Throwable {
+        String circuitBreakerName = findCircuitBreakerName(annotation);
+        CircuitBreaker circuitBreaker = registry.circuitBreaker(circuitBreakerName);
         try {
             return circuitBreaker.executeCheckedSupplier(joinPoint::proceed);
         } catch (NoFallbackAvailableException e) {
@@ -36,8 +44,8 @@ class ExecuteSupplierCircuitBreakerAspect {
         }
     }
 
-    private String findCircuitBreakerName(ProceedingJoinPoint joinPoint) {
-        return Optional.ofNullable(AnnotationUtils.findAnnotation(joinPoint.getTarget().getClass(), FeignCircuitBreaker.class))
+    private String findCircuitBreakerName(FeignCircuitBreaker annotation) {
+        return Optional.ofNullable(annotation)
                 .map(FeignCircuitBreaker::value)
                 .orElse("default");
     }

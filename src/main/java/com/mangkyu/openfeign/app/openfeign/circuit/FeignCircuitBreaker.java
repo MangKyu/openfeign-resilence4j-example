@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface FeignCircuitBreaker {
 
-    String value();
+    String value() default "";
 
+    boolean apply() default true;
 }

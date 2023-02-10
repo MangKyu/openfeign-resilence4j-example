@@ -94,6 +94,28 @@ class ExecuteSupplierCircuitBreakerAspectTest {
         verify(circuitBreaker, times(1)).executeCheckedSupplier(any());
     }
 
+    @Test
+    void 서킷브레이커실행_성공_서킷브레이커적용하지않음() throws Throwable {
+        // given
+        ProceedingJoinPoint joinPoint = mock(ProceedingJoinPoint.class);
+        FeignClientWithoutFeignCircuitBreaker target = new FeignClientWithoutFeignCircuitBreaker();
+        doReturn(target)
+                .when(joinPoint)
+                .getTarget();
+
+        // when
+        aspect.circuitBreakerDefaultAdvice(joinPoint, mock(FeignClient.class));
+
+        // then
+        verify(joinPoint, times(1)).proceed();
+        verify(circuitBreaker, times(0)).executeCheckedSupplier(any());
+    }
+
+    @FeignClient
+    @FeignCircuitBreaker(apply = false)
+    static class FeignClientWithoutFeignCircuitBreaker {
+
+    }
 
     @FeignClient
     @FeignCircuitBreaker("MangKyu")
