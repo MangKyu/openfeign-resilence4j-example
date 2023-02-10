@@ -31,6 +31,12 @@ resilience4j:
         baseConfig: default
       currency:
         baseConfig: default
+  timelimiter:
+    configs:
+      default:
+        timeoutDuration: 5s
+        cancelRunningFuture: true
+
 
 management:
   endpoints:
