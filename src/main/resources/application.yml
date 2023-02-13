@@ -33,11 +33,9 @@ resilience4j:
         waitDurationInOpenState: 30s
         slowCallDurationThreshold: 5s
         registerHealthIndicator: true
-        recordFailurePredicate: com.mangkyu.openfeign.app.openfeign.circuit.ExceptionRecordFailurePredicate
+        recordFailurePredicate: com.mangkyu.openfeign.app.openfeign.circuit.DefaultExceptionRecordFailurePredicate
     instances:
       default:
-        baseConfig: default
-      currency:
         baseConfig: default
   timelimiter:
     configs:

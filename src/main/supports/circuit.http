@@ -1,1 +1,21 @@
+### GET
+GET http://localhost:8641/circuit/call
+
+### GET
+GET http://localhost:8080/circuit2/call
+
+### GET
 GET http://localhost:8080/circuit/call
+
+### GET
+GET http://localhost:8080/circuit/call2
+
+
+### GET
+GET http://localhost:8080/circuit/status?name=circuit-test
+
+### GET
+GET http://localhost:8080/circuit/status?name=localhost
+
+### GET
+GET http://localhost:8080/circuit/all
