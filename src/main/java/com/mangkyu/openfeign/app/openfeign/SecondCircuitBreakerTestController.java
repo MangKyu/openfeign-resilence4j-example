@@ -16,6 +16,7 @@ import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.client.circuitbreaker.NoFallbackAvailableException;
+import org.springframework.cloud.openfeign.CircuitBreakerNameResolver;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,31 +26,27 @@ import java.util.Collections;
 
 @RestController
 @RequiredArgsConstructor
-class CircuitBreakerTestController {
+class SecondCircuitBreakerTestController {
 
-    private final ExchangeRateOpenFeign feign;
+    private final SecondExchangeRateOpenFeign feign;
     private final CircuitBreakerRegistry circuitBreakerRegistry;
 
-    @GetMapping("/circuit/call")
+    private final CircuitBreakerNameResolver circuitBreakerNameResolver;
+
+    @GetMapping("/circuit2/call")
     public ResponseEntity<ExchangeRateResponse> call() {
         ExchangeRateResponse response = feign.call("asd", Currency.USD, Currency.KRW);
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/circuit/call2")
-    public ResponseEntity<ExchangeRateResponse> call2() {
-        ExchangeRateResponse response = feign.call2("asd", Currency.USD, Currency.KRW);
-        return ResponseEntity.ok(response);
-    }
-
-    @GetMapping("/circuit/close")
+    @GetMapping("/circuit2/close")
     public ResponseEntity<Void> close() {
         circuitBreakerRegistry.circuitBreaker("default")
                 .transitionToClosedState();
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/circuit/open")
+    @GetMapping("/circuit2/open")
     public ResponseEntity<Void> open() {
         circuitBreakerRegistry.circuitBreaker("default")
                 .transitionToOpenState();

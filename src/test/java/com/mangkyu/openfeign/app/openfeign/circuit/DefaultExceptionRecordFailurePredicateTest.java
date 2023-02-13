@@ -14,7 +14,7 @@ import java.util.concurrent.TimeoutException;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.Mockito.mock;
 
-class ExceptionRecordFailurePredicateTest {
+class DefaultExceptionRecordFailurePredicateTest {
 
     @MethodSource("failureException")
     @ParameterizedTest
@@ -22,7 +22,7 @@ class ExceptionRecordFailurePredicateTest {
         // given
 
         // when
-        boolean result = new ExceptionRecordFailurePredicate().test(throwable);
+        boolean result = new DefaultExceptionRecordFailurePredicate().test(throwable);
 
         // then
         assertThat(result).isEqualTo(true);
@@ -33,7 +33,7 @@ class ExceptionRecordFailurePredicateTest {
         // given
 
         // when
-        boolean result = new ExceptionRecordFailurePredicate().test(new RuntimeException());
+        boolean result = new DefaultExceptionRecordFailurePredicate().test(new RuntimeException());
 
         // then
         assertThat(result).isEqualTo(false);

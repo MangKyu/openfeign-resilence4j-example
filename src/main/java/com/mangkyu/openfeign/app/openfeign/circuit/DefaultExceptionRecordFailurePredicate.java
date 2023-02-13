@@ -6,7 +6,7 @@ import feign.RetryableException;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Predicate;
 
-public class ExceptionRecordFailurePredicate implements Predicate<Throwable> {
+public class DefaultExceptionRecordFailurePredicate implements Predicate<Throwable> {
 
     // 반환값이 True면 Fail로 기록됨
     @Override
