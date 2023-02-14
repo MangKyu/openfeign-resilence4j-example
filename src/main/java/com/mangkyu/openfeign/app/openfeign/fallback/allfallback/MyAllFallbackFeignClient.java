@@ -2,7 +2,7 @@ package com.mangkyu.openfeign.app.openfeign.fallback.allfallback;
 
 import com.mangkyu.openfeign.app.Currency;
 import com.mangkyu.openfeign.app.ExchangeRateResponse;
-import com.mangkyu.openfeign.app.openfeign.fallback.feignfallback.MyTestFallbackFactory;
+import com.mangkyu.openfeign.app.openfeign.fallback.feignfallback.factory.MyTestFallbackFactory;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

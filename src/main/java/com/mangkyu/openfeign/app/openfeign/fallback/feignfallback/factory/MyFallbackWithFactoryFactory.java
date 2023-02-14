@@ -1,4 +1,4 @@
-package com.mangkyu.openfeign.app.openfeign.fallback.feignfallback;
+package com.mangkyu.openfeign.app.openfeign.fallback.feignfallback.factory;
 
 import com.mangkyu.openfeign.app.Currency;
 import com.mangkyu.openfeign.app.ExchangeRateResponse;
@@ -6,7 +6,7 @@ import com.mangkyu.openfeign.app.openfeign.fallback.allfallback.MyAllFallbackFei
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-class MyFallbackWithFactory implements MyFeignFallbackFeignClient, MyAllFallbackFeignClient {
+class MyFallbackWithFactoryFactory implements MyFeignFallbackFactoryFeignClient, MyAllFallbackFeignClient {
 
 
     @Override

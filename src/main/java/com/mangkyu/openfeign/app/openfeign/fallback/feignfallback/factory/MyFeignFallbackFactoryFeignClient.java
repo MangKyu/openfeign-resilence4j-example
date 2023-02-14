@@ -1,4 +1,4 @@
-package com.mangkyu.openfeign.app.openfeign.fallback.feignfallback;
+package com.mangkyu.openfeign.app.openfeign.fallback.feignfallback.factory;
 
 import com.mangkyu.openfeign.app.Currency;
 import com.mangkyu.openfeign.app.ExchangeRateResponse;
@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(
-        name = "ExchangeRateFeignFallbackFeignClient",
+        name = "MyFeignFallbackFactoryFeignClient",
         url = "${exchange.currency.api.uri}",
         fallbackFactory = MyTestFallbackFactory.class
 )
-interface MyFeignFallbackFeignClient {
+interface MyFeignFallbackFactoryFeignClient {
 
     @GetMapping
     ExchangeRateResponse defaultValueCallback(
